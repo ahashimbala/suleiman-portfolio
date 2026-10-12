@@ -1,53 +1,74 @@
 const sideMenu = document.querySelector('#sideMenu');
-const navBar = document.querySelector('nav')
-const navLinks = document.querySelector('nav ul')
+const navBar = document.querySelector('nav');
+const navLinks = document.querySelector('nav ul');
 
 function openMenu() {
-    sideMenu.style.transform = 'translateX(-16rem)'
+    sideMenu.style.transform = 'translateX(-16rem)';
 }
 
 function closeMenu() {
-    sideMenu.style.transform = 'translateX(16rem)'
+    sideMenu.style.transform = 'translateX(16rem)';
 }
 
 window.addEventListener('scroll', () => {
-    if (scrollY > 50) {
-        navBar.classList.add('bg-white', 'bg-opacity-50', 'backdrop-blur-lg', 'shadow-sm', 'dark:bg-black', 'dark:shadow-white/20')
-        navLinks.classList.remove('bg-white', 'shadow-sm', 'bg-opacity-50', 'dark:border', 'dark:border-white/70', 'dark:bg-transparent')
-    } else {
-        navBar.classList.remove('bg-white', 'bg-opacity-50', 'backdrop-blur-lg', 'shadow-sm', 'dark:bg-black', 'dark:shadow-white/20')
-        navLinks.classList.add('bg-white', 'shadow-sm', 'bg-opacity-50', 'dark:border', 'dark:border-white/70', 'dark:bg-transparent')
-    }
-})
+    if (window.scrollY > 50) {
+        navBar.classList.add(
+            'bg-white',
+            'bg-opacity-50',
+            'backdrop-blur-lg',
+            'shadow-sm',
+            'dark:bg-black',
+            'dark:shadow-white/20'
+        );
 
+        navLinks.classList.remove(
+            'bg-white',
+            'shadow-sm',
+            'bg-opacity-50',
+            'dark:border',
+            'dark:border-white/70',
+            'dark:bg-transparent'
+        );
+    } else {
+        navBar.classList.remove(
+            'bg-white',
+            'bg-opacity-50',
+            'backdrop-blur-lg',
+            'shadow-sm',
+            'dark:bg-black',
+            'dark:shadow-white/20'
+        );
+
+        navLinks.classList.add(
+            'bg-white',
+            'shadow-sm',
+            'bg-opacity-50',
+            'dark:border',
+            'dark:border-white/70',
+            'dark:bg-transparent'
+        );
+    }
+});
+
+// Apply the saved theme or follow the system preference.
 if (
     localStorage.theme === 'dark' ||
     (!('theme' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+    )
 ) {
     document.documentElement.classList.add('dark');
 } else {
     document.documentElement.classList.remove('dark');
 }
 
-// light mode and dark mode
-document.documentElement.classList.toggle(
-    "dark",
-    localStorage.theme === "dark" ||
-    (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
-);
-// Whenever the user explicitly chooses light mode
-localStorage.theme = "light";
-// Whenever the user explicitly chooses dark mode
-localStorage.theme = "dark";
-// Whenever the user explicitly chooses to respect the OS preference
-localStorage.removeItem("theme");
-
+// Toggle between light mode and dark mode.
 function toggleTheme() {
-    document.documentElement.classList.toggle('dark')
+    document.documentElement.classList.toggle('dark');
+
     if (document.documentElement.classList.contains('dark')) {
         localStorage.theme = 'dark';
     } else {
-        localStorage.theme = 'light'
+        localStorage.theme = 'light';
     }
 }
